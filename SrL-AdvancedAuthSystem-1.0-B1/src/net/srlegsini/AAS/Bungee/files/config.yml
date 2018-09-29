@@ -1,0 +1,111 @@
+Database:
+  #Which database you wanna use?
+  databaseType: sqlite
+  #SQLite options. Will work only if databaseType is 'sqlite'.
+  sqlite:
+    #You can use any file name that you want! You can't use symbols (!"#/\ etc...)
+    fileName: database
+    #File path can be 'DEFAULT' (Plugin's default folder) or any other path (like 'C:/Users/srleg/Desktop').
+    filePath: 'DEFAULT'
+  #MySQL options. Will work only if databaseType is 'mysql'.
+  mysql:
+    #Hostname or IP address of your server and the port.
+    hostname: '127.0.0.1:3306'
+    #Selected database.
+    database: 'AdvancedAuthSystem'
+    #Username and Password for login into MySQL server.
+    username: 'username'
+    password: 'password'
+    #MySQL Backup: Create a full backup of MySQL server everytime. (File will be called "mysql_backup.db")
+    backupFile: false
+#Auth configuration.
+Auth:
+  Register:
+    #Passwords must be hashed for security reasons. If they're not hashed, a hacker can steal your user's information!
+    #Which hash you like more? (MD5, SHA256, SHA512)
+    #You can use hash combinations with a '+' in the middle. For example, if you want to use SHA256, SHA512 and again SHA256 for the password, then put 'SHA256+SHA512+SHA256'
+    #Hash combination can make brute force hacking impossible. Do not share your combination with nobody!
+    hashType: 'SHA256'
+    #Server which will host the player while it registers. Then, it will be sent to another server. (You can change it in "Auth.Global.mainServer")
+    registerServer: 'AuthLobby'
+    #Time (in seconds) for the player to register, otherwise it will be kicked.
+    registerTime: 60
+    #Maximum password length.
+    minimumPasswordLength: 6
+    #Maximum password length. (Remember that it's impossible to put a password larger than 126 char)
+    maximumPasswordLength: 32
+    #Allow symbols in password? (Remember that it could be hard to remember)
+    allowSymbols: false
+    #Must the player log in after register?
+    loginAfterRegister: false
+    #Blocked passwords (unsafe passwords)
+    unsafePasswords:
+    - '123456'
+    - 'password'
+    - 'aaaaaa'
+    #Max number of registrations per IP Address.
+    maxRegPerIP: 4
+  Login:
+    #Kick the player if it fails the password?
+    kickOnFail: true
+    #Player could result banned if reaches X amount of failed attempts.
+    banOnFail:
+      #Will the player get banned?
+      Enabled: false
+      #How many attempts to get banned?
+      attempsToGetBanned: 5
+      #Ban time in seconds.
+      banTime: 3600
+    #Time (in seconds) for the player to login, otherwise it will be kicked.
+    loginTime: 30
+    #Server which will host the player while it logs in. Then, it will be sent to another server. (You can change it in "Auth.Global.mainServer")
+    loginServer: 'AuthLobby'
+  Global:
+    #Players can be sent to another server after logging in or register process. What server will it be?
+    #(If players will stay in the same server as registerServer or loginServer, just put the same name here)
+    mainServer: 'Lobby'
+    #Players in those country code can't log in. (It can be avoided with a Proxy or VPN, so I recommend to get more protection)
+    #Note: 'CN' (China) is just an example setted because it's the c
+    countryBlacklist:
+    - a1
+    - a2
+    - ap
+    #Commands that the player can use before registering or logging in. (Use * for all commands)
+    allowedCommands:
+    - register
+    - r
+    - login
+    - l
+#Plugin configuration.
+Plugin:
+  debug:
+    #Debug messages are messages that notice the console of what is the plugin doing.
+    #Select console's debug level.
+    #0: Minimal level, only very important and essential stuff.
+    #1: Normal level, minimal + error messages.
+    #2: High level, almost everything, can be bothering for console-reading.
+    #3: Developer level, only for testing purposes. Will spam console with irrelevant information.
+    debugLevel: 1
+    #Debug file will only save debug messages that can't be displayed in console.
+    #This file will only store the last 64 debug messages.
+    debugFile: true
+#Commands configuration. (commands can have multiple aliases)
+Commands:
+  register:
+  - r
+  - register
+  login:
+  - l
+  - login
+  changePassword:
+  - cp
+  - changepassword
+  advancedAuthSystem:
+  - aas
+  - advancedauthsystem
+#Permissions configuration. (Permission of each command) (If 'NONE', then it won't request for a permission, anyone can use it)
+Permissions:
+  register: 'NONE'
+  login: 'NONE'
+  changePassword: 'aas.cp'
+  advancedAuthSystem: 'aas.maincommand'
